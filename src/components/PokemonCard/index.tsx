@@ -10,10 +10,37 @@ export default function PokemonCard(data: PokemonCardData) {
   const navigation = useNavigation();
 
   console.log(' data do PokemonCard', data);
+  console.log(' type do PokemonCard', data.data.types[0].type.name);
+
+  let backgdColor = '##CACACA';
+  switch (data.data.types[0].type.name) {
+    case 'grass':
+      backgdColor = '#46A487';
+      break;
+    case 'fire':
+      backgdColor = '#FB6C6C';
+      break;
+    case 'flying':
+      backgdColor = '#46C5D7';
+      break;
+    case 'water':
+      backgdColor = '#4676A4';
+      break;
+    case 'eletric':
+      backgdColor = '#FFCE4B';
+      break;
+    case 'bug':
+      backgdColor = '#46D7AB';
+      break;
+    default:
+      backgdColor = '#CACACA';
+  }
   return (
     <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigation.navigate('Details', {props: data.data})}>
+      style={styles2(backgdColor).container}
+      onPress={() =>
+        navigation.navigate('Details', {props: data.data, bkg: backgdColor})
+      }>
       <Text style={styles.title}>{data.data.name.toUpperCase()}</Text>
       <Image
         style={styles.image}
@@ -24,19 +51,9 @@ export default function PokemonCard(data: PokemonCardData) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: 100,
-    width: 140,
-    backgroundColor: '#CACACA',
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    margin: 10,
-  },
   title: {
     fontSize: 16,
-    color: '#555555',
+    color: '#FFFFFF',
     marginTop: 10,
   },
   image: {
@@ -44,3 +61,17 @@ const styles = StyleSheet.create({
     width: 80,
   },
 });
+
+const styles2 = (props: string) =>
+  StyleSheet.create({
+    container: {
+      height: 100,
+      width: 140,
+      backgroundColor: props,
+      borderRadius: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 10,
+      margin: 10,
+    },
+  });

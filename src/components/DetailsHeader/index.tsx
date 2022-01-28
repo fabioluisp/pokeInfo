@@ -23,13 +23,13 @@ export default function DetailsHeader(data: PokemonHeadData) {
   const types = data.data.types.map(item => {
     return item.type.name;
   });
-  console.log(' tipos ', types);
+  console.log(' bkg ', data.bkg);
 
   return (
-    <View style={styles.container}>
+    <View style={styles2(data.bkg).container}>
       <StatusBar barStyle={'light-content'} />
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Icon name="chevron-left" size={26} color="#a7a7a9" />
+        <Icon name="chevron-left" size={26} color="#FFFFFF" />
       </TouchableOpacity>
       <View style={styles.titleArea}>
         <Text style={styles.title}>{data.data.name.toUpperCase()}</Text>
@@ -42,7 +42,7 @@ export default function DetailsHeader(data: PokemonHeadData) {
           horizontal={true}
           renderItem={({item}) => {
             return (
-              <View style={styles.typeView}>
+              <View style={styles2(data.bkg).typeView}>
                 <Text style={styles.type}>{item.toUpperCase()}</Text>
               </View>
             );
@@ -59,13 +59,26 @@ export default function DetailsHeader(data: PokemonHeadData) {
   );
 }
 
+const styles2 = (props: string) =>
+  StyleSheet.create({
+    container: {
+      height: 300,
+      backgroundColor: props,
+      paddingHorizontal: 30,
+      paddingTop: 40,
+    },
+    typeView: {
+      width: 80,
+      backgroundColor: '#FFFFFF',
+      opacity: 0.3,
+      borderRadius: 20,
+      marginRight: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
+
 const styles = StyleSheet.create({
-  container: {
-    height: 300,
-    backgroundColor: '#CACACA',
-    paddingHorizontal: 30,
-    paddingTop: 40,
-  },
   titleArea: {
     width: '100%',
     flexDirection: 'row',
@@ -87,16 +100,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   type: {
-    color: '#FFFFFF',
+    color: '#000000',
     margin: 5,
-  },
-  typeView: {
-    width: 80,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    borderRadius: 10,
-    marginRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   image: {
     alignSelf: 'center',
